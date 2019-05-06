@@ -1,0 +1,11 @@
+version: '3.7'
+services:
+  web:
+    build: ./project
+    image: web
+    container_name: web
+    ports:
+      - 8000:8000
+    volumes:
+      - ./project:/usr/local/opt
+    command: gunicorn -b 0.0.0.0:8000 app:app
