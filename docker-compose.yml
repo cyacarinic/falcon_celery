@@ -9,3 +9,23 @@ services:
     volumes:
       - ./project:/usr/local/opt
     command: gunicorn -b 0.0.0.0:8000 app:app
+    environment:
+      - CELERY_BROKER=redis://redis:6379/0
+      - CELERY_BACKEND=redis://redis:6379/0
+    depends_on:
+      - redis
+
+  celery:
+    image: web
+    volumes:
+      - ./project:/usr/local/opt
+    command: celery -A app.tasks worker --loglevel=info
+    environment:
+      - CELERY_BROKER=redis://redis:6379/0
+      - CELERY_BACKEND=redis://redis:6379/0
+    depends_on:
+      - web
+      - redis
+
+  redis:
+    image: redis:5.0.3-alpine

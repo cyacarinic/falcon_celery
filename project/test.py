@@ -1,7 +1,7 @@
 # project/test.py
 import unittest
-from falcon import testing
 from app import app
+from falcon import testing
 
 
 class TestAppRoutes(testing.TestCase):
