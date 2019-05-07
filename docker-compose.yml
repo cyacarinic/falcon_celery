@@ -5,11 +5,12 @@ services:
     image: web
     container_name: web
     ports:
-      - 8000:8000
+      - 8014:8014
     volumes:
       - ./project:/usr/local/opt
-    command: gunicorn -b 0.0.0.0:8000 app:app
+    command: gunicorn -b 0.0.0.0:8014 app:app
     environment:
+      - LOGLEVEL=DEBUG
       - CELERY_BROKER=redis://redis:6379/0
       - CELERY_BACKEND=redis://redis:6379/0
     depends_on:
